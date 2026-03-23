@@ -1,0 +1,2 @@
+dataset	rows_total	rows_used	rows_dropped	healthy_count	nonhealthy_count	mannwhitney_u	mannwhitney_pvalue	rank_biserial
+results_GGMP_gai	6242	5799	443	1082	4717	1489479.0	1.630452899982602e-101	-0.4163247968080216

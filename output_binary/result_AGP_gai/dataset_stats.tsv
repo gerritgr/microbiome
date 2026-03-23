@@ -1,0 +1,2 @@
+dataset	rows_total	rows_used	rows_dropped	healthy_count	nonhealthy_count	mannwhitney_u	mannwhitney_pvalue	rank_biserial
+result_AGP_gai	5965	5350	615	1662	3688	2238854.0	3.2607197808108035e-56	-0.26947709552038546

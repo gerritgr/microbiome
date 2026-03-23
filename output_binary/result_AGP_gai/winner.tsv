@@ -1,0 +1,2 @@
+dataset	winning_method	winning_balanced_accuracy_mean	winning_auc_mean	paper_baseline_balanced_accuracy	baseline_delta
+result_AGP_gai	logistic_prob_threshold	0.7449222000708617	0.6347767799649591	0.67	0.0749222000708617
