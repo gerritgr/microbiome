@@ -21,7 +21,13 @@ def split_otu_by_health(meta_path, otu_path):
 
 def model_health_ages(predicted_age_df,otu_df):
     # Use pycaret to model healthy otu_df and predict the physiological age of the samples
-    reg = setup(data=predicted_age_df, target='age', session_id=123, silent = True)
+    reg = setup(
+        data=predicted_age_df,
+        target='age',
+        session_id=123,
+        html=False,
+        verbose=False,
+    )
     best_model = compare_models()
     compare_models_df = pull()
     compare_models_df.to_csv('compare_models.tsv', sep='\t', index=True)
