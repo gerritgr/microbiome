@@ -1,3 +1,3 @@
-dataset	samples_total	samples_train	samples_test	accuracy	balanced_accuracy
-result_AGP_gai	5350	4280	1070	0.6560747663551402	0.47560975609756095
-results_GGMP_gai	5799	4639	1160	0.8094827586206896	0.4973516949152542
+dataset	samples_total	accuracy	balanced_accuracy
+result_AGP_gai	5350	0.6598130841121496	0.47874444322628307
+results_GGMP_gai	5799	0.8082428004828419	0.49682001271994913

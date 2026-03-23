@@ -3,7 +3,6 @@ from pathlib import Path
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, balanced_accuracy_score
-from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -42,39 +41,28 @@ def fit_and_score(df: pd.DataFrame) -> tuple[dict, pd.DataFrame]:
     x = df[[FEATURE_COL]]
     y = df["health_label"]
 
-    x_train, x_test, y_train, y_test, id_train, id_test = train_test_split(
-        x,
-        y,
-        df["id"],
-        test_size=0.2,
-        random_state=42,
-        stratify=y,
-    )
-
     model = Pipeline(
         steps=[
             ("scale", StandardScaler()),
             ("logreg", LogisticRegression(max_iter=1000, random_state=42)),
         ]
     )
-    model.fit(x_train, y_train)
+    model.fit(x, y)
 
-    y_pred = model.predict(x_test)
-    y_prob = model.predict_proba(x_test)[:, 1]
+    y_pred = model.predict(x)
+    y_prob = model.predict_proba(x)[:, 1]
 
     metrics = {
         "samples_total": int(len(df)),
-        "samples_train": int(len(x_train)),
-        "samples_test": int(len(x_test)),
-        "accuracy": float(accuracy_score(y_test, y_pred)),
-        "balanced_accuracy": float(balanced_accuracy_score(y_test, y_pred)),
+        "accuracy": float(accuracy_score(y, y_pred)),
+        "balanced_accuracy": float(balanced_accuracy_score(y, y_pred)),
     }
 
     predictions = pd.DataFrame(
         {
-            "id": id_test.to_numpy(),
-            "corrected GAI": x_test[FEATURE_COL].to_numpy(),
-            "health_true": y_test.map({0: "n", 1: "y"}).to_numpy(),
+            "id": df["id"].to_numpy(),
+            "corrected GAI": x[FEATURE_COL].to_numpy(),
+            "health_true": y.map({0: "n", 1: "y"}).to_numpy(),
             "health_pred": pd.Series(y_pred).map({0: "n", 1: "y"}).to_numpy(),
             "probability_y": y_prob,
         }
@@ -100,7 +88,7 @@ def main() -> None:
             index=False,
         )
         predictions.to_csv(
-            dataset_output_dir / "test_predictions.tsv",
+            dataset_output_dir / "predictions.tsv",
             sep="\t",
             index=False,
         )
